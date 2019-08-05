@@ -12,10 +12,10 @@ margin_right = 704.431
 margin_bottom = 34.7941
 
 [node name="Score" type="Label" parent="."]
-margin_left = 20.0261
-margin_top = 15.578
-margin_right = 75.0261
-margin_bottom = 29.578
+margin_left = 42.1867
+margin_top = 22.2262
+margin_right = 97.1867
+margin_bottom = 36.2262
 text = "Score : 0"
 
 [node name="Evolve_Bar" type="ProgressBar" parent="."]
