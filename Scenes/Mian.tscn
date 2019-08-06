@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scenes/HUD.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Background.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Image/Background/blue_star.png" type="Texture" id=3]
+[ext_resource path="res://Image/Background/red_star.png" type="Texture" id=4]
+[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=5]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node
@@ -29,5 +31,45 @@ script = SubResource( 1 )
 
 [node name="Background" parent="." instance=ExtResource( 2 )]
 
-[node name="Player" parent="." instance=ExtResource( 3 )]
+[node name="blue_star" type="Sprite" parent="Background"]
+position = Vector2( -153.003, -35.7988 )
+scale = Vector2( 0.15, 0.15 )
+texture = ExtResource( 3 )
+
+[node name="blue_star4" type="Sprite" parent="Background"]
+position = Vector2( -44.8015, 221.761 )
+scale = Vector2( 0.15, 0.15 )
+texture = ExtResource( 3 )
+
+[node name="blue_star2" type="Sprite" parent="Background"]
+position = Vector2( -213.721, -241.846 )
+scale = Vector2( 0.15, 0.15 )
+texture = ExtResource( 3 )
+
+[node name="blue_star3" type="Sprite" parent="Background"]
+position = Vector2( 212.858, 2.27563 )
+scale = Vector2( 0.15, 0.15 )
+texture = ExtResource( 3 )
+
+[node name="red_star" type="Sprite" parent="Background"]
+position = Vector2( 84.4174, -95.1491 )
+scale = Vector2( 0.15, 0.15 )
+texture = ExtResource( 4 )
+
+[node name="red_star3" type="Sprite" parent="Background"]
+position = Vector2( 128.009, 142.253 )
+scale = Vector2( 0.15, 0.15 )
+texture = ExtResource( 4 )
+
+[node name="red_star4" type="Sprite" parent="Background"]
+position = Vector2( 156.811, -237.367 )
+scale = Vector2( 0.15, 0.15 )
+texture = ExtResource( 4 )
+
+[node name="red_star2" type="Sprite" parent="Background"]
+position = Vector2( -189.589, 143.373 )
+scale = Vector2( 0.15, 0.15 )
+texture = ExtResource( 4 )
+
+[node name="Player" parent="." instance=ExtResource( 5 )]
 position = Vector2( 357.264, 79.5031 )
