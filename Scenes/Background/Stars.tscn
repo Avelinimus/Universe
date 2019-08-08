@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Image/Background/red_star.png" type="Texture" id=1]
+[ext_resource path="res://Image/Background/blue_star.png" type="Texture" id=2]
+[ext_resource path="res://Image/Background/yellow_star.png" type="Texture" id=3]
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Node2D
+
+var timer = 0
+var color_star = [\"Red\", \"Blue\", \"Yell\"]
+
+func _ready():
+	$AnimatedSprite.animation = color_star[randi() % color_star.size()]
+	$AnimatedSprite.scale.x = rand_range(0.15, 0.2)
+	$AnimatedSprite.scale.y = rand_range(0.15, 0.2)
+	$AnimatedSprite.rotation = rand_range(0, 360)
+
+func _process(delta):
+	position.y += 10 # Speed for stars try 1 and 20
+	if timer:
+		_on_Destroy_timeout()
+
+func _on_Destroy_timeout():
+	timer += 1
+	queue_free()
+
+"
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "Red",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "Blue",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "Yell",
+"speed": 5.0
+} ]
+
+[node name="Stars" type="Node2D"]
+scale = Vector2( 0.2, 0.2 )
+script = SubResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 3 )
+animation = "Yell"
+
+[node name="Destroy" type="Timer" parent="."]
+wait_time = 0.44
+autostart = true
+[connection signal="timeout" from="Destroy" to="." method="_on_Destroy_timeout"]

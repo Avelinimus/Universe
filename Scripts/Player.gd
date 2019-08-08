@@ -1,27 +1,26 @@
 extends KinematicBody2D
 
-export var speed = 200
-export var score = 0
-export var evolve = 0
+export (int) var speed = 500
+var target = Vector2(370, 535) # Start position
+var velocity = Vector2()
 var screen_size
 
+func player_move():
+	if Input.is_action_pressed('click'): # Rework for android
+		target = get_global_mouse_position()
+		
+	velocity = (target - position).normalized() * speed
+	#rotation = velocity.angle()
+	if (target - position).length() > 5:
+		velocity = move_and_slide(velocity)
 
 
 func _ready():
 	screen_size = get_viewport_rect().size
 
-
+# warning-ignore:unused_argument
 func _process(delta):
-	# Movement for player
-	var velocity = Vector2()
-	print(int(rand_range(0,2)))
-	
-	if Input.is_action_pressed("ui_left"):
-		velocity.x -= 1
-		
-	if Input.is_action_pressed("ui_right"):
-		velocity.x += 1
-	velocity = velocity.normalized() * speed
-	# Clamp for player
-	position += velocity * delta
+	player_move()
 	position.x = clamp(position.x, 25, screen_size.x - 25)
+	position.y = clamp(position.y, 25, screen_size.y - 25)
+	
