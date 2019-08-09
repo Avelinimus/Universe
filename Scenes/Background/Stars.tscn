@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Image/Background/red_star.png" type="Texture" id=1]
-[ext_resource path="res://Image/Background/blue_star.png" type="Texture" id=2]
-[ext_resource path="res://Image/Background/yellow_star.png" type="Texture" id=3]
+[ext_resource path="res://Image/Background/yellow_star.png" type="Texture" id=2]
+[ext_resource path="res://Image/Background/blue_star.png" type="Texture" id=3]
 
-[sub_resource type="GDScript" id=2]
+[sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
 
 var timer = 0
@@ -27,7 +27,7 @@ func _on_Destroy_timeout():
 
 "
 
-[sub_resource type="SpriteFrames" id=3]
+[sub_resource type="SpriteFrames" id=2]
 animations = [ {
 "frames": [ ExtResource( 1 ) ],
 "loop": true,
@@ -36,21 +36,21 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 2 ) ],
 "loop": true,
-"name": "Blue",
+"name": "Yell",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 3 ) ],
 "loop": true,
-"name": "Yell",
+"name": "Blue",
 "speed": 5.0
 } ]
 
 [node name="Stars" type="Node2D"]
 scale = Vector2( 0.2, 0.2 )
-script = SubResource( 2 )
+script = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-frames = SubResource( 3 )
+frames = SubResource( 2 )
 animation = "Yell"
 
 [node name="Destroy" type="Timer" parent="."]
