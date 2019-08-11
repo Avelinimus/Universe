@@ -4,8 +4,7 @@ extends Node2D
 # var a = 2
 var screen_size
 var spawn_count = 0
-var rand = rand_seed(100)
-
+var rand = rand_seed(120)
 
 onready var Star = preload("res://Scenes/Background/Stars.tscn")
 onready var Asteroids = preload("res://Scenes/Solid/Asteroid.tscn")
@@ -25,7 +24,6 @@ func add_back_stars(): # Spawn star on background
 func add_asteroids(spawn): # Spawn asteroids on background
 	var asteroids = Asteroids.instance()
 	rand_pos(asteroids, -180, -1150)
-	asteroids.evolve = 1
 	if spawn_count > spawn: # Spawn count of asteroids
 		add_child(asteroids)
 
@@ -41,7 +39,6 @@ func add_planets(spawn): # Spawn planets on background
 	if spawn_count > spawn: # Spawn count of planets
 		add_child(planets)
 
-
 func add_stars(spawn): # Spawn planets on background
 	var stars = Stars.instance()
 	rand_pos(stars, -150, -1160)
@@ -49,7 +46,6 @@ func add_stars(spawn): # Spawn planets on background
 		add_child(stars)
 		spawn_count = 0
 	spawn_count += 1
-
 
 func add_black_star():
 	pass

@@ -9,7 +9,6 @@ func _ready():
 	screen_size = get_viewport_rect().size
 	scale = Vector2(1.2, 1.2)
 
-	
 func _process(delta):
 	position.y += 3
 	if position.y > 700:
