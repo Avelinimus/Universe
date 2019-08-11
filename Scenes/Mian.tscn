@@ -16,11 +16,11 @@ func _ready():
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	pass
 	#score += score + delta
 	#$HUD/Score.text = \"Score : \" + str(score)
-"
+	"
 
 [node name="Main" type="Node"]
 script = SubResource( 1 )
@@ -28,7 +28,7 @@ script = SubResource( 1 )
 [node name="HUD" parent="." instance=ExtResource( 1 )]
 
 [node name="Background" parent="." instance=ExtResource( 2 )]
-position = Vector2( -1.09512, -1.17346 )
+position = Vector2( -1.09512, -0.0654278 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 position = Vector2( 370, 535 )

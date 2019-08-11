@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Image/Background/red_star.png" type="Texture" id=1]
+[ext_resource path="res://Image/Background/blue_star.png" type="Texture" id=1]
 [ext_resource path="res://Image/Background/yellow_star.png" type="Texture" id=2]
-[ext_resource path="res://Image/Background/blue_star.png" type="Texture" id=3]
+[ext_resource path="res://Image/Background/red_star.png" type="Texture" id=3]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
@@ -31,7 +31,7 @@ func _on_Destroy_timeout():
 animations = [ {
 "frames": [ ExtResource( 1 ) ],
 "loop": true,
-"name": "Red",
+"name": "Blue",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 2 ) ],
@@ -41,7 +41,7 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 3 ) ],
 "loop": true,
-"name": "Blue",
+"name": "Red",
 "speed": 5.0
 } ]
 
@@ -50,6 +50,7 @@ scale = Vector2( 0.2, 0.2 )
 script = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+light_mask = 0
 frames = SubResource( 2 )
 animation = "Yell"
 
