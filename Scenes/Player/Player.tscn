@@ -4,7 +4,7 @@
 [ext_resource path="res://Image/Player/1.png" type="Texture" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 27.8129
+radius = 25.7978
 
 [node name="Player" type="Area2D"]
 script = ExtResource( 1 )

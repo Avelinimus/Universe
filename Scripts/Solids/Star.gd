@@ -1,7 +1,6 @@
 extends Area2D
 
 var screen_size
-var evolve = 2
 var score = 20
 
 func _ready():
@@ -14,7 +13,7 @@ func _process(delta):
 		queue_free()
 		
 func _on_Star_area_entered(area):
-	if area.get_overlapping_areas():
-		queue_free()
 	if area.get_name() == "Player":
+		queue_free()
+	if area.get_overlapping_areas():
 		queue_free()

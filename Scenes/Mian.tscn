@@ -11,16 +11,27 @@ script/source = "extends Node
 # var a = 2
 var score = 0
 
+func update_score():
+	$HUD/Score.text = 'Score :' + str($Player.score)
+
+func restart_game():
+	$Restart.visible = true
+	if $Restart.pressed:
+		$Restart.get_tree().reload_current_scene()
+
+func evolve_bar():
+	pass #$HUD/Evolve_Bar.
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
-	#score += score + delta
-	#$HUD/Score.text = \"Score : \" + str(score)
-	"
+	if $Player.alive:
+		update_score()
+	else:
+		restart_game()"
 
 [node name="Main" type="Node"]
 script = SubResource( 1 )
@@ -32,3 +43,11 @@ position = Vector2( -1.09512, -0.0654278 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 position = Vector2( 370, 535 )
+
+[node name="Restart" type="Button" parent="."]
+visible = false
+margin_left = 282.925
+margin_top = 251.098
+margin_right = 435.925
+margin_bottom = 271.098
+text = "Restart"
