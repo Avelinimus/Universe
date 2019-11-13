@@ -8,8 +8,8 @@ func _ready():
 	scale = Vector2(1.2, 1.2)
 
 func _process(delta):
-	position.y += 3
-	if position.y > 700:
+	position.y += 3 * Player.count_evolve
+	if position.y > screen_size.y + 50:
 		queue_free()
 
 func _on_Meteor_area_entered(area):

@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Image/Background/blue_star.png" type="Texture" id=1]
-[ext_resource path="res://Image/Background/yellow_star.png" type="Texture" id=2]
-[ext_resource path="res://Image/Background/red_star.png" type="Texture" id=3]
+[ext_resource path="res://Image/Background/red_star.png" type="Texture" id=2]
+[ext_resource path="res://Image/Background/yellow_star.png" type="Texture" id=3]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
@@ -17,7 +17,7 @@ func _ready():
 	$AnimatedSprite.rotation = rand_range(0, 360)
 
 func _process(delta):
-	position.y += 10 # Speed for stars try 1 and 20
+	position.y += 111 * Player.count_evolve * delta
 	if timer:
 		_on_Destroy_timeout()
 
@@ -36,12 +36,12 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 2 ) ],
 "loop": true,
-"name": "Yell",
+"name": "Red",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 3 ) ],
 "loop": true,
-"name": "Red",
+"name": "Yell",
 "speed": 5.0
 } ]
 

@@ -1,17 +1,59 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
-[ext_resource path="res://Image/Player/1.png" type="Texture" id=2]
+[ext_resource path="res://Image/Player/3.png" type="Texture" id=2]
+[ext_resource path="res://Image/Player/4.png" type="Texture" id=3]
+[ext_resource path="res://Image/Player/5.png" type="Texture" id=4]
+[ext_resource path="res://Image/Player/2.png" type="Texture" id=5]
+[ext_resource path="res://Image/Player/1.png" type="Texture" id=6]
 
-[sub_resource type="CircleShape2D" id=1]
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "Planet",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "Star",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "Black_hole",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "Meteor",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "Asteroid",
+"speed": 5.0
+} ]
+
+[sub_resource type="CircleShape2D" id=2]
 radius = 25.7978
 
 [node name="Player" type="Area2D"]
+visible = false
 script = ExtResource( 1 )
 
-[node name="Sprite" type="Sprite" parent="."]
-texture = ExtResource( 2 )
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+animation = "Asteroid"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+shape = SubResource( 2 )
+
+[node name="Start_game_timer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="Black_hole_timer" type="Timer" parent="."]
+wait_time = 3.0
 [connection signal="area_entered" from="." to="." method="_on_Player_area_entered"]
+[connection signal="timeout" from="Start_game_timer" to="." method="_on_Start_game_timer_timeout"]
+[connection signal="timeout" from="Black_hole_timer" to="." method="_on_Black_hole_timer_timeout"]

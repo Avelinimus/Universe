@@ -1,0 +1,97 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Control
+
+var SAVE_PATH = \"res://Data/data.json\"
+
+func load_game():
+	var save_game = File.new()
+	if not save_game.file_exists(SAVE_PATH):
+		return 
+		
+	var save_nodes = get_tree().get_nodes_in_group(\"Persistent\")
+	for node in save_nodes:
+		node.queue_free()
+		
+	save_game.open(SAVE_PATH, File.READ)
+	while !save_game.eof_reached():
+		var current_line = parse_json(save_game.get_line())
+		print(current_line[\"filename\"])
+		print(current_line[\"alive\"])
+		var new_object = load(current_line[\"filename\"]).instance()
+		get_node(current_line[\"parent\"]).add_child(new_object)
+		new_object.position = Vector2(current_line[\"position_x\"], current_line[\"position_y\"])
+		for key in current_line.keys():
+			if key == \"filename\" or key == \"parent\" or key == \"position_x\" or key == \"position_y\":
+				continue
+			new_object.set(key, current_line[key])
+	save_game.close()
+				
+func continue_game():
+	if $Continue.pressed:
+		queue_free()
+		load_game()
+		
+func play_game():
+	if $Play.pressed:
+		queue_free()
+		get_tree().change_scene(\"res://Scenes/Mian.tscn\")
+		
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	Player.visible = false
+
+func _process(delta):
+	play_game()
+	continue_game()
+	"
+
+[node name="Main_menu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -0.353882
+margin_top = -0.0329437
+margin_right = -0.353882
+margin_bottom = -0.032959
+script = SubResource( 1 )
+__meta__ = {
+"_edit_horizontal_guides_": [  ],
+"_edit_vertical_guides_": [  ]
+}
+
+[node name="Continue" type="Button" parent="."]
+margin_left = 241.864
+margin_top = 96.6817
+margin_right = 477.864
+margin_bottom = 148.682
+text = "Continue"
+
+[node name="Play" type="Button" parent="."]
+margin_left = 241.864
+margin_top = 165.047
+margin_right = 477.864
+margin_bottom = 217.047
+text = "Play"
+
+[node name="Settings" type="Button" parent="."]
+margin_left = 243.669
+margin_top = 302.226
+margin_right = 479.669
+margin_bottom = 354.226
+text = "Settings"
+
+[node name="Score" type="Button" parent="."]
+margin_left = 242.708
+margin_top = 233.805
+margin_right = 478.708
+margin_bottom = 285.805
+text = "Score"
+
+[node name="Shop" type="Button" parent="."]
+margin_left = 243.178
+margin_top = 371.945
+margin_right = 479.178
+margin_bottom = 423.945
+text = "Shop"

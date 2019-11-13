@@ -1,0 +1,31 @@
+[gd_scene format=2]
+
+[node name="Pause_menu" type="Control"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.29236
+margin_right = 1.29236
+
+[node name="Continue_button" type="Button" parent="."]
+pause_mode = 2
+margin_left = 259.878
+margin_top = 111.61
+margin_right = 475.878
+margin_bottom = 149.61
+text = "Continue"
+
+[node name="Restart_button" type="Button" parent="."]
+pause_mode = 2
+margin_left = 258.975
+margin_top = 179.297
+margin_right = 474.975
+margin_bottom = 217.297
+text = "Restart"
+
+[node name="Main_menu_button" type="Button" parent="."]
+margin_left = 258.073
+margin_top = 249.692
+margin_right = 474.073
+margin_bottom = 287.692
+text = "Menu"

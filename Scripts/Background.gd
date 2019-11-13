@@ -12,6 +12,7 @@ onready var Meteors = preload("res://Scenes/Solid/Meteor.tscn")
 onready var Planets = preload("res://Scenes/Solid/Planet.tscn")
 onready var Stars = preload("res://Scenes/Solid/Star.tscn")
 
+
 func rand_pos(object, y0, y1):
 	object.position.x = int(rand_range(0, screen_size.x))
 	object.position.y = int(rand_range(y0, y1))
@@ -86,4 +87,5 @@ func _ready():
 	screen_size = get_viewport_rect().size
 
 func _process(delta):
+
 	spawner()

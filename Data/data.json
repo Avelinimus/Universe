@@ -1,0 +1,2 @@
+{"filename":"res://Scenes/Mian.tscn","parent":"/root"}
+{"BlackHoleTimer":0,"StartGameTimer":0,"alive":false,"filename":"res://Scenes/Player/Player.tscn","n":0,"parent":"/root/Main","position_x":162.466003,"position_y":340.076477,"score":3903,"score_evolve":0}

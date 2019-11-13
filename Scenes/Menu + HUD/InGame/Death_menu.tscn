@@ -1,0 +1,21 @@
+[gd_scene format=2]
+
+[node name="Death_menu" type="Control"]
+margin_left = 132.0
+margin_top = 89.0
+margin_right = 650.0
+margin_bottom = 486.0
+
+[node name="Restart_button" type="Button" parent="."]
+margin_left = 141.0
+margin_top = 32.0
+margin_right = 393.0
+margin_bottom = 81.0
+text = "Restart"
+
+[node name="Main_menu_button" type="Button" parent="."]
+margin_left = 142.327
+margin_top = 138.81
+margin_right = 394.327
+margin_bottom = 187.81
+text = "Menu"

@@ -1,53 +1,136 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Scenes/Menu + HUD/HUD.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scenes/Background/Background.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Background/Background.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Menu + HUD/InGame/Death_menu.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Menu + HUD/InGame/Pause_menu.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Menu + HUD/InGame/HUD.tscn" type="PackedScene" id=5]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node
 
-# Declare member variables here. Examples:
-# var a = 2
-var score = 0
+var SAVE_PATH = \"res://Data/data.json\"
 
-func update_score():
-	$HUD/Score.text = 'Score :' + str($Player.score)
+func save():
+	var save_dict = {
+		\"filename\" : get_filename(),
+		\"parent\" : get_parent().get_path(),
+	}
+	return save_dict
+
+func save_game():
+	var save_file = File.new()
+	var nodes_to_save = get_tree().get_nodes_in_group(\"Persistent\")
+	save_file.open(SAVE_PATH, File.WRITE)
+	for node in nodes_to_save:
+		var node_data = node.call(\"save\")
+		save_file.store_line(to_json(node_data))
+	save_file.close()
+
+func settings_pause():
+	if $HUD/Settings_Pause.pressed:
+		get_tree().paused = true
+		$Pause_menu.visible = true
+		
+func pause_button():
+	if $Pause_menu/Continue_button.pressed:
+		get_tree().paused = false
+		$Pause_menu.visible = false
+	elif $Pause_menu/Restart_button.pressed:
+		get_tree().paused = false
+		$Pause_menu.visible = false
+		Player.count_evolve = 1
+		get_tree().reload_current_scene()
+		Player.start_timeout = false
+		$HUD/Start_game.visible = true
+	elif $Pause_menu/Main_menu_button.pressed:
+		get_tree().paused = false
+		$Pause_menu.visible = false
+		get_tree().change_scene(\"res://Scenes/Menu + HUD/InMenu/Main_menu.tscn\")
+
+func get_start():
+	if $Player/Start_game_timer.time_left <= 0:
+		$HUD/Start_game.visible = false
+
+func update_HUD():
+	$HUD/Score.text = 'Score :' + str(int($Player.score))
+	if $Player.n == 4:
+		$HUD/Time_left_for_evolve_1.visible = true
+		$HUD/Time_left_for_evolve_1.text = 'Time evolve left :' + str(int($Player/Black_hole_timer.time_left) + 1)
+	else:
+		$HUD/Time_left_for_evolve_1.visible = false
 
 func restart_game():
-	$Restart.visible = true
-	if $Restart.pressed:
-		$Restart.get_tree().reload_current_scene()
+	if $Death_menu/Restart_button.pressed:
+		get_tree().reload_current_scene()
+		Player.start_timeout = false
+		$HUD/Start_game.visible = true
+		Player.count_evolve = 1
+		
+func main_menu_game():
+	if $Death_menu/Main_menu_button.pressed:
+		get_tree().change_scene(\"res://Scenes/Menu + HUD/InMenu/Main_menu.tscn\")
+
 
 func evolve_bar():
-	pass #$HUD/Evolve_Bar.
+	if Player.n == 1:
+		pass
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if $Player.alive:
-		update_score()
+		get_start()
+		update_HUD()
+		settings_pause()
+		if get_tree().paused:
+			pause_button()
 	else:
-		restart_game()"
+		$Death_menu.visible = true
+		$Pause_menu.visible = false
+		restart_game()
+		main_menu_game()
+		#Delete JSON and write result of score
+	
+		
+func _on_Save_Timer_timeout():
+	save_game()
+"
 
-[node name="Main" type="Node"]
+[node name="Main" type="Node" groups=[
+"Persistent",
+]]
+pause_mode = 2
 script = SubResource( 1 )
 
-[node name="HUD" parent="." instance=ExtResource( 1 )]
+[node name="Background" parent="." instance=ExtResource( 1 )]
+pause_mode = 1
+position = Vector2( 0.907501, -0.0654297 )
 
-[node name="Background" parent="." instance=ExtResource( 2 )]
-position = Vector2( -1.09512, -0.0654278 )
+[node name="Player" parent="." groups=[
+"Persistent",
+] instance=ExtResource( 2 )]
+pause_mode = 1
+visible = true
+show_behind_parent = true
+position = Vector2( 360.48, 519.133 )
 
-[node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( 370, 535 )
-
-[node name="Restart" type="Button" parent="."]
+[node name="Death_menu" parent="." instance=ExtResource( 3 )]
+pause_mode = 2
 visible = false
-margin_left = 282.925
-margin_top = 251.098
-margin_right = 435.925
-margin_bottom = 271.098
-text = "Restart"
+margin_left = 94.3168
+margin_top = 186.977
+margin_right = 612.317
+margin_bottom = 583.977
+
+[node name="Pause_menu" parent="." instance=ExtResource( 4 )]
+visible = false
+
+[node name="HUD" parent="." instance=ExtResource( 5 )]
+
+[node name="Save_Timer" type="Timer" parent="."]
+wait_time = 0.33
+autostart = true
+[connection signal="timeout" from="Save_Timer" to="." method="_on_Save_Timer_timeout"]

@@ -7,8 +7,8 @@ func _ready():
 	screen_size = get_viewport_rect().size
 	
 func _process(delta):
-	position.y += 3
-	if position.y > 700:
+	position.y += 3 * Player.count_evolve
+	if position.y > screen_size.y + 50:
 		queue_free()
 
 func _on_Asteroid_area_entered(area):

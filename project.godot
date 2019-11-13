@@ -16,8 +16,13 @@ _global_script_class_icons={
 [application]
 
 config/name="universe"
-run/main_scene="res://Scenes/Mian.tscn"
+run/main_scene="res://Scenes/Menu + HUD/InMenu/Main_menu.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Player="*res://Scenes/Player/Player.tscn"
+Main_menu="*res://Scenes/Menu + HUD/InMenu/Main_menu.tscn"
 
 [debug]
 
